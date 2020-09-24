@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+
+<title>Nouvel utilisateur</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+	<div class="col-5 bg-light py-2 my-5"
+		style="width: 100%; margin-left: auto; margin-right: auto; text-align: center;">
+		<form class="my-1 " style="width: 100%;" method="post"
+			th:action="@{createuser}" th:object="${user}">
+			<h3>Nouvel utilisateur</h3>			
+			<small style="color:red" th:text="${msgErr}"></small>
+			<div class=" mx-2"><!-- row -->
+				<div class="form-group text-left ">
+					<label for="username">Nom</label> 
+					<input class="form-control" th:field="*{username}"  required>
+				</div>				
+				<div class="form-group text-left ">
+					<label for="name">Prénom</label> 
+					<input class="form-control" th:field="*{name}" required>
+				</div>	
+				<div class="form-group text-left " style="width: 40%">
+					<label for="dateOfBirth">Date de naissance</label> 
+					
+					<input class="form-control" type="text" th:field="*{dateOfBirth}" placeholder="dd/MM/yyyy" >	 <!-- placeholder="dd/MM/yyyy" -->
+					<small style="color:red"  th:errors="*{dateOfBirth}"></small>				
+				</div>				
+			</div>
+			<div class="mx-2">			
+				<div class=" row">
+					<div class="form-group text-left col">
+						<label for="email">Mail</label> 
+						<input type="email" class="form-control" th:field="*{email}"  required>
+					</div>				
+					<div class="form-group text-left col ">
+						<label for="password">Mot de passe</label> 
+						<input type="password" class="form-control" th:field="*{password}" required>
+					</div>				
+				</div>
+			</div>
+			
+			<div class="row mx-2  ">
+					<button type="submit" name="submit" value="create"
+						class="btn btn-success col-3 px-1" style="width: 100%;">Valider</button>
+					<a href="#" th:href="@{login}" class="col-3 px-1 mx-1 btn btn-danger">Annuler</a>
+			</div>					
+		</form>
+	</div>
+
+</body>
+</html>

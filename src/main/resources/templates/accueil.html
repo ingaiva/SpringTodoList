@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Login</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body >
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"
+					th:text="${userConnected.username}+ ' ' + ${userConnected.name}" th:href="@{accueil}"> </a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{addtask}">
+						Ajouter une tache </a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{login}">
+						Se déconnecter </a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<div th:if="${userConnected.lstTask.size() > 0 || mc!=null}">				
+		<div  class="m-3">	
+			<h1>Tâches...</h1>
+			<div class="container mx-2 my-4">
+				<form th:action="@{recherche}" method="POST">
+					<label>Mot clé :</label> <input type="text" name="mc"
+						th:value="${mc}" />
+					<button class="btn btn-primary">Chercher</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="lst m-3">
+
+		<div class="accordion" id="accordionExample">
+
+			<div class="card" th:each="t, iter :${userConnected.lstTask}">
+				<div class="card-header" id="headingOne"
+					th:id="'heading' + ${iter.index}">
+					<h2 class="mb-0">						
+							<button class="btn btn-link btn-block btn-lg text-left collapsed"
+								type="button" data-toggle="collapse" data-target="#collapseOne"
+								th:attr="data-target='#collapse' + ${iter.index}, aria-controls='collapse' + ${iter.index}"
+								aria-controls="collapseOne" aria-expanded="true"
+								th:text="${t.title}">Collapsible Group Item</button>
+					</h2>
+				</div>
+				
+				<div id="collapseOne" th:id="'collapse' + ${iter.index}"
+					class="collapse"
+					th:class="${iter.index==0} ? 'collapse show' : 'collapse'"
+					th:attr="aria-labelledby='heading' + ${iter.index}"
+					aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-10 ">
+								<h4 th:text="${t.category}"></h4>
+								<!-- <h5 th:text="${t.date}" placeholder="dd/MM/yyyy"></h5> -->
+								<h5 th:text="${#dates.format(t.date, 'dd/MM/yyyy HH:mm')}"></h5>
+								<!-- th:text="${#dates.format(standardDate, 'dd-MM-yyyy HH:mm')}" -->
+								<p class="font-italic" th:text="${t.label}"></p>							
+							</div>
+							<div class="col-2">
+								<a class="nav-link" th:href="@{edittask(idTask=${t.idTask})}">Modifier</a>
+								<a class="nav-link" th:href="@{deletetask(idTask=${t.idTask})}">Supprimer</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

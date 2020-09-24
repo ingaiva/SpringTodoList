@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Login</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<br />
+	<div class="container">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h2>Page de connexion</h2>
+				<small th:text="${msgErr}"></small>
+				
+			</div>
+			<br />
+			<div class="panel-body">
+				<form th:action="@{login}" method="POST" th:object="${user}">
+					<div>
+						<label class="control-label">Mail :</label> <input
+							class="form-control" th:field="*{email}" />
+					</div>
+					<div>
+						<label class="control-label">Password :</label> <input
+							class="form-control" th:field="*{password}" />
+					</div>
+					<br />
+					<div>
+						<button type="submit" class="btn btn-primary">Login</button>
+					</div>
+					
+					<div class="text-left my-3">
+						<a href="#" th:href="@{createuser}" class=" text-success">Créer nouvel
+							utilisateur</a>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
